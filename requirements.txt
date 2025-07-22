@@ -1,0 +1,14 @@
+# requirements.txt
+biopython
+spacy
+scispacy
+transformers
+elasticsearch
+gensim
+nltk
+networkx
+pyvis
+matplotlib
+seaborn
+flask # For optional web interface
+wordcloud
