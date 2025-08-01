@@ -9,7 +9,7 @@ import itertools
 
 # --- NLP Libraries ---
 import spacy
-from spacy.lang.en import English # Only needed if creating custom tokenizer, else spacy.load handles it
+from spacy.lang.en import English
 from Bio import Entrez
 from transformers import pipeline
 
@@ -20,7 +20,7 @@ from elasticsearch import Elasticsearch, helpers
 from gensim import corpora, models
 from gensim.parsing.preprocessing import STOPWORDS
 import nltk
-# Ensure NLTK data is downloaded for stop words if not already
+
 try:
     from nltk.corpus import stopwords
 except LookupError:
@@ -39,7 +39,7 @@ from pyvis.network import Network
 
 # --- Global Configurations ---
 # Set your email for Entrez. It's required by NCBI.
-Entrez.email = "nkumari5@asu.edu" # <<< IMPORTANT: CHANGE THIS TO YOUR EMAIL >>>
+Entrez.email = "email" # <<< IMPORTANT: CHANGE THIS TO YOUR EMAIL >>>
 # Optional: Set an API key if you have one for higher request rates
 # Entrez.api_key = "YOUR_NCBI_API_KEY" # <<< OPTIONAL: UNCOMMENT AND ADD YOUR NCBI API KEY >>>
 
@@ -142,7 +142,7 @@ def fetch_abstracts(id_list):
                 title = pub_article.find(".//ArticleTitle").text if pub_article.find(".//ArticleTitle") is not None else "No Title"
 
                 # --- CORRECTED ABSTRACT EXTRACTION ---
-                abstract = "No Abstract" # Default value as a string
+                abstract = "No Abstract"
                 abstract_elem = pub_article.find(".//AbstractText")
                 if abstract_elem is not None and abstract_elem.text is not None:
                     abstract = abstract_elem.text
@@ -237,7 +237,7 @@ def extract_entities_huggingface(text):
     for ent in entities:
         label = ent['entity_group']
         if label == 'CHEMICAL':
-            label = 'DRUG' # Map 'CHEMICAL' to 'DRUG' for our project's domain
+            label = 'DRUG' # Map 'CHEMICAL' to 'DRUG' for project's domain
         extracted.append({"text": ent['word'], "label": label, "score": ent['score'], "source": "huggingface"})
     return extracted
 
@@ -535,7 +535,7 @@ if __name__ == "__main__":
         print("No articles to process for NER. Skipping.")
     else:
         sample_article_text = raw_articles[0]["processed_text"]
-        original_abstract_for_ner = raw_articles[0]["abstract"] # Use original for NER models
+        original_abstract_for_ner = raw_articles[0]["abstract"] 
 
         print(f"Original Abstract (for NER context):\n{original_abstract_for_ner[:300]}...\n")
 
@@ -655,7 +655,7 @@ if __name__ == "__main__":
 
             if not topic_trends.empty:
                 topic_prevalence = topic_trends.groupby(['year', 'topic']).size().unstack(fill_value=0)
-                # Normalize by sum of articles per year, if sum is not zero
+
                 topic_prevalence = topic_prevalence.div(topic_prevalence.sum(axis=1), axis=0).fillna(0) 
 
                 print("\nTopic prevalence over time (sample):\n", topic_prevalence.head())
