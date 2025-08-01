@@ -10,5 +10,5 @@ networkx
 pyvis
 matplotlib
 seaborn
-flask # For optional web interface
+flask 
 wordcloud
