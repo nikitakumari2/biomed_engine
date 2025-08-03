@@ -172,12 +172,12 @@ if __name__ == "__main__":
 
     # 5. Plot Entity Frequencies
     print("\n--- Entity Frequencies ---")
-    plot_entity_frequencies(processed_articles) # Pass original list to handle nested entities easily
+    plot_entity_frequencies(processed_articles) 
 
     # 6. Generate Word Clouds
     print("\n--- Generating Word Clouds ---")
     generate_word_clouds(processed_articles, 'abstract')
-    generate_word_clouds(processed_articles, 'processed_text') # Word cloud from cleaned text
+    generate_word_clouds(processed_articles, 'processed_text')
 
     # 7. Analyze Topic Distribution
     print("\n--- Overall Topic Distribution ---")
